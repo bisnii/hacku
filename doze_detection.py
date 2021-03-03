@@ -47,39 +47,47 @@ def check_status(img):
 
 # 以下テスト用プログラム
 if __name__ == '__main__':
+    import sys
+    if len(sys.argv) == 2:
+        arg = sys.argv[1]
+    else:
+        raise Exception('コマンド引数を入力してください')
+
     # 動画でテストする場合
     # "q"キーでプログラム終了
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
-        print('Camera is not opened')  # カメラが起動しない場合、VideoCaptureの引数を0~9で変えてみる
-    else:
-        while True:
-            ret, img = cap.read()
-            face_rects, eye_rects = compute_pos_faces_eyes(img)
-            # print('face_rects :\n', face_rects)
-            # print('eye_rects :\n', eye_rects)
-            for x, y, w, h in face_rects:
-                cv2.rectangle(img, (x,y), (x+w,y+h), (0,0,255), 3)
-            for x, y, w, h in eye_rects:
-                cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 3)
-            cv2.imshow('video capture : Press "q", if you want to finish.', img)
-            key = cv2.waitKey(1)
-            if key & 0xFF == ord('q'):
-                break
-            print('status:', check_status(img))
-    cap.release()
-    cv2.destroyAllWindows()
+    if arg == 'movie':
+        cap = cv2.VideoCapture(0)
+        if not cap.isOpened():
+            print('Camera is not opened')  # カメラが起動しない場合、VideoCaptureの引数を0~9で変えてみる
+        else:
+            while True:
+                ret, img = cap.read()
+                face_rects, eye_rects = compute_pos_faces_eyes(img)
+                # print('face_rects :\n', face_rects)
+                # print('eye_rects :\n', eye_rects)
+                for x, y, w, h in face_rects:
+                    cv2.rectangle(img, (x,y), (x+w,y+h), (0,0,255), 3)
+                for x, y, w, h in eye_rects:
+                    cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 3)
+                cv2.imshow('video capture : Press "q", if you want to finish.', img)
+                key = cv2.waitKey(1)
+                if key & 0xFF == ord('q'):
+                    break
+                print('status:', check_status(img))
+        cap.release()
+        cv2.destroyAllWindows()
 
     # 画像でテストする場合
-    img = cv2.imread('./data/image1.png')
-    # face_rects, eye_rects = compute_pos_faces_eyes(img)
-    # # print('face_rects :\n', face_rects)
-    # # print('eye_rects :\n', eye_rects)
-    # for x, y, w, h in face_rects:
-    #     cv2.rectangle(img, (x,y), (x+w,y+h), (0,0,255), 3)
-    # for x, y, w, h in eye_rects:
-    #     cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 3)
-    # print('status:', check_status(img))
-    # cv2.imshow('test', img)
-    # cv2.waitKey()  # 何かキーを押したら終了、右上のXで終了しない
-    # cv2.destroyAllWindows()
+    else:
+        img = cv2.imread(arg)
+        face_rects, eye_rects = compute_pos_faces_eyes(img)
+        # print('face_rects :\n', face_rects)
+        # print('eye_rects :\n', eye_rects)
+        for x, y, w, h in face_rects:
+            cv2.rectangle(img, (x,y), (x+w,y+h), (0,0,255), 3)
+        for x, y, w, h in eye_rects:
+            cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 3)
+        print('status:', check_status(img))
+        cv2.imshow('test', img)
+        cv2.waitKey()  # 何かキーを押したら終了、右上のXで終了しない
+        cv2.destroyAllWindows()
