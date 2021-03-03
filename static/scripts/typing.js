@@ -2,8 +2,8 @@ var dialog = document.querySelector('dialog');
 var btn_show = document.getElementById('show');
 var btn_close = document.getElementById('close');
 
-const japanese_sentences = ['さあ張り切って頑張りましょう。','その1行が世界を一歩前に進める','君の手には人を笑顔にできる力がある','あなたの技術を尊敬しています。','ソースコードはアートなのです。'];
-const alphabet_sentences = ['saaharikitteganbarimashou.','sono1gyougasekaiwoippomaenisusumeru','kiminotenihahitowoegaonidekirutikaragaaru','anatanogijyutuwosonkeisiteimasu.','so-suko-dohaa-tonanodesu.'];
+const japanese_sentences = ['さあ張り切って頑張りましょう。','その1行が世界を一歩前に進める','君の手には人を笑顔にする力がある','あなたの技術を尊敬しています。','ソースコードはアートなのです。'];
+const alphabet_sentences = ['saaharikitteganbarimashou.','sono1gyougasekaiwoippomaenisusumeru','kiminotenihahitowoegaonisurutikaragaaru','anatanogijyutuwosonkeisiteimasu.','so-suko-dohaa-tonanodesu.'];
 let idx = 0;
 
 btn_show.addEventListener('click', function() {
@@ -13,12 +13,12 @@ btn_show.addEventListener('click', function() {
 
 btn_close.addEventListener('click', function() {
     dialog.close();
-    idx = 0;
-    true_keys = '';
+    stop_alarm.innerHTML = 'stop';
 }, false);
 
 function typingGame(){
     shuffle();
+    idx = 0;
     japanese_s = japanese_sentences[0];
     alphabet_s = alphabet_sentences[0];
     printSentence(japanese_s,alphabet_s);
@@ -49,6 +49,13 @@ function show_keydown(alphabet_s){
         if(key == alphabet_s[idx]){
             idx += 1;
             alphabet.innerHTML = alphabet_s.slice(idx,);
+            if(idx == alphabet_s.length){
+                idx = 0;
+                alphabet_s = "";
+                stop_alarm.innerHTML = 'stop';
+                dialog.close();
+
+            }
         }
     }
 }
