@@ -5,8 +5,17 @@ var btn_close = document.getElementById('close');
 
 btn_show.addEventListener('click', function() {
     dialog.showModal();
-  }, false);
-  
-  btn_close.addEventListener('click', function() {
+    typingGame();
+}, false);
+
+btn_close.addEventListener('click', function() {
     dialog.close();
-  }, false);
+}, false);
+
+function typingGame(){
+    printSentence();
+}
+
+function printSentence(){
+    sentence.innerHTML = 'さあ張り切って頑張りましょう。'
+}
