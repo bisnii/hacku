@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <h1 id="time"></h1>
+    <select name="alarmTime" id="alarmTime">
+        <option value="5m" selected>5分</option>
+        <option value="10m">10分</option>
+        <option value="15m">15分</option>
+        <option value="30m">30分</option>
+    </select>
+    <br>
+    <select name="alarmMusic" id="alarmMusic">
+        <option value="alarm" selected>アラーム</option>
+        <option value="telephone">着信音</option>
+        <option value="bell">ベル</option>
+    </select>
+    <br>
+    <select name="bgm" id="bgm">
+        <option value="rain" selected>雨音</option>
+        <option value="test1">テスト</option>
+        <option value="test2">テスト</option>
+    </select>
+    <a id="setting" class="setting">設定</a>
+    <script src="../static/scripts/alarm.js" defer></script>
+</body>
+</html>
