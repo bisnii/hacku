@@ -1,0 +1,59 @@
+.entire{
+    width: 600px;
+    margin: 0 auto;
+}
+
+.title{
+    color: #000;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-around;
+}
+
+.button1,
+.button2,
+.button3,
+.check_button{
+    color: #000;
+    background-color: #fff;
+    font-size: larger;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 1px;
+    border: 1.5px solid #000;
+    border-radius: 0%;  /*角状態*/
+}
+
+.clock{
+    text-align: center;
+    font-size: 80px;
+    line-height: 0%;
+}
+
+.timer{
+    text-align: center;
+    line-height: 0%;
+}
+
+form
+{
+    text-align: center;
+}
+
+
+.drop_down1{
+    width:50px;
+    font-size: 18px;
+    border: 1.5px solid #000; /*枠*/
+}
+
+.drop_down2{
+    width: 150px;
+    font-size: 18px;
+    border: 1.5px solid #000; /*枠*/
+}
+.check{
+    text-align: center;
+}
