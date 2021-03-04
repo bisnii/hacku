@@ -14,8 +14,7 @@
 
 .button1,
 .button2,
-.button3,
-.check_button{
+.button3 {
     color: #000;
     background-color: #fff;
     font-size: larger;
@@ -26,14 +25,34 @@
     border-radius: 0%;  /*角状態*/
 }
 
+.check_button,
+.timerStop,
+.timerStart {
+    color: #000;
+    background-color: #fff;
+    font-size: larger;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 1px;
+    border: 1.5px solid #000;
+    border-radius: 0%;  /*角状態*/
+    cursor: pointer;
+}
+
 .clock{
     text-align: center;
-    font-size: 80px;
+    font-size: 70px;
     line-height: 0%;
 }
 
 .timer{
     text-align: center;
+    line-height: 0%;
+}
+
+.time{
+    text-align: center;
+    font-size: 50px;
     line-height: 0%;
 }
 
@@ -56,4 +75,9 @@ form
 }
 .check{
     text-align: center;
+}
+
+.startStop {
+    display: flex;
+    justify-content: space-evenly;
 }

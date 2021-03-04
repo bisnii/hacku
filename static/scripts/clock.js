@@ -1,8 +1,8 @@
 function clock(){
-    var now_time = new Date();
-    var now_hour = now_time.getHours();
-    var now_minute = now_time.getMinutes();
-    var now_second = now_time.getSeconds();
+    let now_time = new Date();
+    let now_hour = now_time.getHours();
+    let now_minute = now_time.getMinutes();
+    let now_second = now_time.getSeconds();
     
     if (now_hour < 10){
         now_hour = '0'+now_hour
