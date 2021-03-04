@@ -14,7 +14,7 @@ btn_show.addEventListener('click', function() {
     typingGame();
 }, false);
 
-btn_close.addEventListener('click', function() {
+btn_close.addEventListener('mousedown', function() {
     dialog.close();
     stop_alarm.innerHTML = 'stop';
 }, false);
