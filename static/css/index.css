@@ -19,7 +19,8 @@
 
 .button1,
 .button2,
-.button3{
+.button3,
+.check_button{
     color: #000;
     background-color: #fff;
     font-size: larger;
@@ -57,4 +58,7 @@ form
     width: 150px;
     font-size: 18px;
     border: 1.5px solid #000; /*枠*/
+}
+.check{
+    text-align: center;
 }
