@@ -7,11 +7,6 @@
     color: #000;
 }
 
-.all{
-    text-align: center;
-    font-size: 20px;
-}
-
 .flex{
     display: flex;
     justify-content: space-around;
