@@ -1,33 +1,21 @@
 document.getElementById('time').innerHTML = "00:00";
 let timeLimit = 0;
 let timerID;
-// let alarmTimes = document.getElementById("alarmTime").value;
-// アラーム音
-let alarm = new Audio("../alarm/Clock-Alarm01-1(Loop).mp3");
-let telephone = new Audio("../alarm/Telephone-Ringtone02-1.mp3");
-let bell = new Audio("../alarm/VSQSE_0465_bicycle_bell_04.mp3");
-// bgm
-let rain = new Audio("../bgm/VSQSE_0354_rain_3.mp3");
-let sea = new Audio("../bgm/VSQSE_0652_sea_wave5.mp3");
-let country = new Audio("../bgm/VSQSE_0712_rice_plant_02r.mp3");
+let startPushNum = 0;
+let flag = false;
+let bgm = new Audio("../bgm/bgm-rain.mp3");
+let sound = new Audio("../alarm/sound-alarm.mp3");
 
-// 全ての音を止める
-function soundAllStop() {
-    rain.pause();
-    sea.pause();
-    country.pause();
-    alarm.pause();
-    telephone.pause();
-    bell.pause();
-}
 
 // 確定ボタンが押されたらアラーム時間表示
 document.getElementById("check").addEventListener("click", function() {
+    sound.pause();
+    bgm.pause();
     let $alarmTime = document.getElementById("alarmTime").value;
 
     if ($alarmTime == '1m') {
         document.getElementById('time').innerHTML = "01:00";
-        timeLimit = 60000;
+        timeLimit = 10000;
     }
 	else if ($alarmTime == '5m') {
         document.getElementById('time').innerHTML = "05:00";
@@ -45,8 +33,11 @@ document.getElementById("check").addEventListener("click", function() {
         document.getElementById('time').innerHTML = "60:00";
         timeLimit = 3600000;
     }
+    startPushNum = 0;
+    if (flag){
+        flag = false;
+    }
     clearTimeout(timerID);
-    soundAllStop();
 })    
 
 // カウントダウンの関数
@@ -56,13 +47,30 @@ function countDown() {
 
 // スタートボタンが押されたらカウントダウンスタート
 document.getElementById("timerStart").addEventListener("click", function() {
-    countDown();
+    startPushNum = startPushNum + 1;
+    let $bgmChoice = document.getElementById("bgm").value;
+    bgm = new Audio("../bgm/bgm-" + $bgmChoice + ".mp3");
+
+    if (startPushNum == 1){
+        bgm.loop = true;
+        bgm.play();
+    }    
+    
+    if (flag == false && timeLimit>0){
+        countDown();
+        flag = true;
+    }    
 })  
 
 // ストップボタンが押されたらタイマーとサウンドをストップ
 document.getElementById("timerStop").addEventListener("click", function() {
+    if (flag){
+        flag = false;
+    }
     clearTimeout(timerID);
-    soundAllStop();
+    bgm.pause();
+    sound.pause();
+    startPushNum = 0;
 })  
 
 // 時間表示、bgm、アラームを鳴らす関数
@@ -71,53 +79,23 @@ function time() {
     let second = ("00" + (timeLimit / 1000) % 60).slice(-2);
 
     document.getElementById("time").innerHTML = minute + ":" + second;
-    timeLimit = timeLimit - 1000;
 
-    let $bgmChoice = document.getElementById("bgm").value;
-    if ($bgmChoice == "rain"){
-        rain.loop = true;
-        rain.play();
-        sea.pause();
-        country.pause();
-    }
-    else if ($bgmChoice == "sea") {
-        sea.loop = true;
-        sea.play();
-        rain.pause();
-        country.pause();
-    }
-    else if ($bgmChoice == "country") {
-        country.loop = true;
-        country.play();
-        rain.pause();
-        sea.pause();
-    }
+    timeLimit = timeLimit - 1000;
+    console.log(timeLimit)
 
     if (timeLimit < 0) {
-        rain.pause();
-        sea.pause();
-        country.pause();
-        let $alarmChoise = document.getElementById("alarmMusic").value;
+        bgm.pause();
+        flag = false;
+        let $alarmChoice = document.getElementById("alarmMusic").value;
+        sound = new Audio("../alarm/sound-" + $alarmChoice + ".mp3");
+
+        sound.loop = true;
+        sound.play();
 
         document.getElementById("time").innerHTML = "Wake Up!";
-        if ($alarmChoise == "alarm"){
-            alarm.loop = true;
-            alarm.play();
-            telephone.pause();
-            bell.pause();
-        }
-        else if ($alarmChoise == "telephone") {
-            telephone.loop = true;
-            telephone.play();
-            alarm.pause();
-            bell.pause();
-        }
-        else if ($alarmChoise == "bell") {
-            bell.loop = true;
-            bell.play();
-            alarm.pause();
-            telephone.pause();
-        }
     }
-    countDown();
+    console.log(flag);
+    if (flag == true){
+        countDown();
+    }    
 }
