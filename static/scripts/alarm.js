@@ -48,28 +48,33 @@ function countDown() {
 // スタートボタンが押されたらカウントダウンスタート
 document.getElementById("timerStart").addEventListener("click", function() {
     startPushNum = startPushNum + 1;
-    let $bgmChoice = document.getElementById("bgm").value;
-    bgm = new Audio("../bgm/bgm-" + $bgmChoice + ".mp3");
 
-    if (startPushNum == 1){
-        bgm.loop = true;
-        bgm.play();
-    }    
+    // if (startPushNum == 1){
+    //     console.log(startPushNum);
+    // }    
     
     if (flag == false && timeLimit>0){
-        countDown();
+        let $bgmChoice = document.getElementById("bgm").value;
+        bgm = new Audio("../bgm/bgm-" + $bgmChoice + ".mp3");
+        bgm.loop = true;
+        bgm.play();
         flag = true;
+        countDown();
     }    
 })  
 
 // ストップボタンが押されたらタイマーとサウンドをストップ
 document.getElementById("timerStop").addEventListener("click", function() {
-    if (flag){
-        flag = false;
-    }
-    clearTimeout(timerID);
+    console.log(bgm);
     bgm.pause();
     sound.pause();
+    console.log("stop");
+    if (flag){
+        bgm.pause();
+        sound.pause();
+        flag = false;
+    } 
+    clearTimeout(timerID);
     startPushNum = 0;
 })  
 
