@@ -15,43 +15,50 @@
         </div>
         <p id='clock' class="clock"></p>
         <p id='timer' class="timer">アラームまで</p>
+        <p id="time" class="time"></p>
+        
         <form name="set_time">
             眠ってから何分後に起こしますか<br>
-            <select name="time" class="drop_down1">
-                <option>1</option>
-                <option>5</option>
-                <option>10</option>
-                <option>30</option>
-                <option>60</option>
+            <select name="alarmTime" id="alarmTime" class="drop_down1">
+                <option value="1m" selected>1</option>
+                <option value="5m">5</option>
+                <option value="10m">10</option>
+                <option value="30m">30</option>
+                <option value="60m">60</option>
             </select>
             分後<br>
         </form>
+        
 
         <form name="wake_up_sound">
             アラーム音<br>
-            <select name="sound" class="drop_down2">
-                <option>アラーム1</option>
-                <option>アラーム2</option>
-                <option>アラーム3</option>
+            <select name="sound" id="alarmMusic" class="drop_down2">
+                <option value="alarm" selected>アラーム</option>
+                <option value="telephone">着信音</option>
+                <option value="bell">ベル</option>
                 <option>アラーム4</option>
             </select>
         </form>
 
         <form name="sleeping_music">
             睡眠中の音楽<br>
-            <select name="music" class="drop_down2">
-                <option>音楽1</option>
-                <option>音楽2</option>
-                <option>音楽3</option>
+            <select name="music" id="bgm" class="drop_down2">
+                <option value="rain" selected>雨音</option>
+                <option value="sea">海波</option>
+                <option value="country">田舎</option>
                 <option>音楽4</option>
             </select>
         </form>
-        <div class='check'>
-            <br>
-            <a href="" class="check_button">確定</a>
+        <br>
+        <div id="check" class='check'>
+            <a id="decision" class="check_button">確定</a>
         </div>
+        <div id="startStop" class='startStop'>
+            <div><a id="timerStart" class="timerStart">START</a></div>
+            <div><a id="timerStop" class="timerStop">STOP</a></div>
+        </div>        
     </div>
     <script type='text/javascript' src="../static/scripts/clock.js"></script>
-    <script type='text/javascript' src=""></script>
+    <script type='text/javascript' src="../static/scripts/alarm.js"></script>
 </body>
 </html>
