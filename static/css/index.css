@@ -7,6 +7,11 @@
     color: #000;
 }
 
+.title a {
+    color: #000000;
+    text-decoration: none;
+}
+
 .flex{
     display: flex;
     justify-content: space-around;
