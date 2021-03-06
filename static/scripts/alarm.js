@@ -3,8 +3,8 @@ let timeLimit = 0;
 let timerID;
 let startPushNum = 0;
 let flag = false;
-let bgm = new Audio("../bgm/bgm-rain.mp3");
-let sound = new Audio("../alarm/sound-alarm.mp3");
+let bgm = new Audio("/static/bgm/bgm-rain.mp3");
+let sound = new Audio("/static/alarm/sound-alarm.mp3");
 
 
 // 確定ボタンが押されたらアラーム時間表示
@@ -55,7 +55,7 @@ document.getElementById("timerStart").addEventListener("click", function() {
     
     if (flag == false && timeLimit>0){
         let $bgmChoice = document.getElementById("bgm").value;
-        bgm = new Audio("../bgm/bgm-" + $bgmChoice + ".mp3");
+        bgm = new Audio("/static/bgm/bgm-" + $bgmChoice + ".mp3");
         bgm.loop = true;
         bgm.play();
         flag = true;
@@ -92,7 +92,7 @@ function time() {
         bgm.pause();
         flag = false;
         let $alarmChoice = document.getElementById("alarmMusic").value;
-        sound = new Audio("../alarm/sound-" + $alarmChoice + ".mp3");
+        sound = new Audio("/static/alarm/sound-" + $alarmChoice + ".mp3");
 
         sound.loop = true;
         sound.play();
