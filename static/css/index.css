@@ -81,3 +81,11 @@ form
     display: flex;
     justify-content: space-evenly;
 }
+
+.select_content {
+    margin-bottom: 20px;
+}
+
+.select_content p {
+    margin-bottom: 5px;
+}
