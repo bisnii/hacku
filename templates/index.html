@@ -2,54 +2,58 @@
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>(仮)Health Care for Engineer</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
 </head>
 <body>
     <div class="entire">
-        <h1 class="title">(仮)Health Care for Engineer</h1>
+        <h1 class="title"><a href="/">(仮)Health Care for Engineer</a></h1>
         <div class="flex">
-            <div><a href="" class="button1">目の検出</a></div>
-            <div><a href="" class="button2">1日の記録</a></div>
-            <div><a href="" class="button3">ログイン<br></a></div>
+            <div><a href="/detection_test" class="button1">居眠り検出テスト</a></div>
+            <div><a href="/activity_log" class="button2">1日の記録</a></div>
+            <div><a href="/login" class="button3">ログイン<br></a></div>
         </div>
+
         <p id='clock' class="clock"></p>
         <p id='timer' class="timer">アラームまで</p>
         <p id="time" class="time"></p>
         
-        <form name="set_time">
-            眠ってから何分後に起こしますか<br>
-            <select name="alarmTime" id="alarmTime" class="drop_down1">
-                <option value="1m" selected>1</option>
-                <option value="5m">5</option>
-                <option value="10m">10</option>
-                <option value="30m">30</option>
-                <option value="60m">60</option>
-            </select>
-            分後<br>
-        </form>
-        
+        <form>
+            <div class="select_content">
+                <p>眠ってから何分後に起こしますか</p>
+                <select name="alarmTime" id="alarmTime" class="drop_down1">
+                    <option value="1m" selected>1</option>
+                    <option value="5m">5</option>
+                    <option value="10m">10</option>
+                    <option value="30m">30</option>
+                    <option value="60m">60</option>
+                </select>
+                <span>分後</span>
+            </div>
 
-        <form name="wake_up_sound">
-            アラーム音<br>
-            <select name="sound" id="alarmMusic" class="drop_down2">
-                <option value="alarm" selected>アラーム</option>
-                <option value="telephone">着信音</option>
-                <option value="bell">ベル</option>
-                <option>アラーム4</option>
-            </select>
+            <div class="select_content">
+                <p>アラーム音</p>   
+                <select name="sound" id="alarmMusic" class="drop_down2">
+                    <option value="alarm" selected>アラーム</option>
+                    <option value="telephone">着信音</option>
+                    <option value="bell">ベル</option>
+                    <option>アラーム4</option>
+                </select>
+            </div>
+            
+            <div class="select_content">
+                <p>睡眠中の音楽</p>
+                <select name="music" id="bgm" class="drop_down2">
+                    <option value="rain" selected>雨音</option>
+                    <option value="sea">海波</option>
+                    <option value="country">田舎</option>
+                    <option>音楽4</option>
+                </select>
+            </div>
         </form>
 
-        <form name="sleeping_music">
-            睡眠中の音楽<br>
-            <select name="music" id="bgm" class="drop_down2">
-                <option value="rain" selected>雨音</option>
-                <option value="sea">海波</option>
-                <option value="country">田舎</option>
-                <option>音楽4</option>
-            </select>
-        </form>
-        <br>
         <div id="check" class='check'>
             <a id="decision" class="check_button">確定</a>
         </div>
@@ -58,7 +62,8 @@
             <div><a id="timerStop" class="timerStop">STOP</a></div>
         </div>        
     </div>
-    <script type='text/javascript' src="../static/scripts/clock.js"></script>
-    <script type='text/javascript' src="../static/scripts/alarm.js"></script>
+
+    <script type='text/javascript' src="/static/scripts/clock.js"></script>
+    <script type='text/javascript' src="/static/scripts/alarm.js"></script>
 </body>
 </html>

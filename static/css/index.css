@@ -7,6 +7,11 @@
     color: #000;
 }
 
+.title a {
+    color: #000000;
+    text-decoration: none;
+}
+
 .flex{
     display: flex;
     justify-content: space-around;
@@ -80,4 +85,12 @@ form
 .startStop {
     display: flex;
     justify-content: space-evenly;
+}
+
+.select_content {
+    margin-bottom: 20px;
+}
+
+.select_content p {
+    margin-bottom: 5px;
 }
