@@ -7,6 +7,42 @@ document.addEventListener('DOMContentLoaded', function() {
     let bgm = new Audio();
     let sound = new Audio();
 
+    // getUserMedia が使えないブラウザのとき
+    if (typeof navigator.mediaDevices.getUserMedia !== 'function') {
+        const err = new Error('getUserMedia()が使えないブラウザです');
+        alert(`${err.name} ${err.message}`);
+        throw err;
+    }
+
+    // 操作する画面エレメント変数定義
+    const start_btn = document.getElementById('start_btn');   // スタートボタン
+    const capture_btn = document.getElementById('capture_btn')  //キャプチャーボタン
+    const video_area = document.getElementById('video_area');  // 映像表示エリア
+
+    // 「スタートボタン」を押下で、getUserMedia を使って映像を「映像表示エリア」に表示するよ。
+    start_btn.addEventListener('click', () => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        .then(stream => {
+            video_area.srcObject = stream
+        })
+        .catch(err => {
+            alert(`${err.name} ${err.message}`)
+        });
+    }, false);
+
+    // 「静止画取得」ボタンが押されたら「<canvas id="capture_image">」に映像のコマ画像を表示します。
+    capture_btn.addEventListener('click', () => {
+        const canvas = document.getElementById('capture_image');
+        const cci = canvas.getContext('2d');
+        canvas.width  = video_area.videoWidth;
+        canvas.height = video_area.videoHeight;
+        cci.drawImage(video_area, 0, 0);  // canvasに『「静止画取得」ボタン』押下時点の画像を描画。
+        canvas.toBlob(function(blob) {
+            const img = document.getElementById('jpeg_image');
+            img.src = window.URL.createObjectURL(blob);
+        }, 'image/png')  // 'image/jpeg'とで精度と速度の変化を要検証
+    }, false);
+
 
     // 確定ボタンが押されたらアラーム時間表示
     document.getElementById("check").addEventListener("click", function() {

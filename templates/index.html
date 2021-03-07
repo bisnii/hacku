@@ -63,6 +63,18 @@
         </div>        
     </div>
 
+    <!-- カメラ映像が描画されます。 -->
+    <video id="video_area" style="background-color: #000;" autoplay></video>
+    <!-- 押下するとカメラ映像描画を開始します。 -->
+    <button id="start_btn">映像表示開始</button>
+    <!-- キャプチャした静止画が描画されます。 -->
+    <canvas id="capture_image"></canvas>
+    <!-- 押下するとカメラ映像から静止画をキャプチャします。 -->
+    <button id="capture_btn">静止画取得</button>
+    <img id="jpeg_image">
+    <span>jpeg表示</span>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type='text/javascript' src="/static/scripts/clock.js"></script>
     <script type='text/javascript' src="/static/scripts/alarm.js"></script>
 </body>
