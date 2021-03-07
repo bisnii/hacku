@@ -9,13 +9,16 @@
 </head>
 <body>
     <div class="entire">
-        <h1 class="title"><a href="/">(仮)Health Care for Engineer</a></h1>
-        <div class="flex">
-            <div><a href="/detection_test" class="button1">居眠り検出テスト</a></div>
-            <div><a href="/activity_log" class="button2">1日の記録</a></div>
-            <div><a href="/login" class="button3">ログイン<br></a></div>
-        </div>
-
+        <header>
+            <h1 class="title"><a href="/">(仮)Health</a></h1>
+            <nav class="nav">
+                <ul class="menu-group">
+                    <li class="menu-item"><a href="/detection_test" class="button1">居眠り検出</a></li>
+                    <li class="menu-item"><a href="/activity_log" class="button2">1日の記録</a></li>
+                    <li class="menu-item"><a href="/login" class="button3">ログイン<br></a></li>
+                </ul>
+            </nav>
+        </header>
         <p id='clock' class="clock"></p>
         <p id='timer' class="timer">アラームまで</p>
         <p id="time" class="time"></p>
@@ -55,7 +58,7 @@
         </form>
 
         <div id="check" class='check'>
-            <a id="decision" class="check_button">確定</a>
+            <a id="decision" class="check_button">保 存</a>
         </div>
         <div id="startStop" class='startStop'>
             <div><a id="timerStart" class="timerStart">START</a></div>
