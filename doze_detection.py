@@ -12,7 +12,7 @@ def compute_pos_faces(img):
     # OpenCVはBGR、フロントから送信されてくる画像がRGBの場合変更する
     # gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    face_rects = face_cascade.detectMultiScale(gray, minNeighbors=4)  # 検出されない場合空のタプル()が返却される
+    face_rects = face_cascade.detectMultiScale(gray, minNeighbors=3)  # 検出されない場合空のタプル()が返却される
     return face_rects
 
 def check_status(img):
