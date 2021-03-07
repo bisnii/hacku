@@ -1,7 +1,12 @@
+import json, base64
+from io import BytesIO
+
 from flask import Flask, request, redirect, render_template, make_response, jsonify
-import json
+import cv2
+import numpy as np
 
 import doze_detection
+
 
 app = Flask(__name__)
 
@@ -11,8 +16,11 @@ def index():
 
 @app.route('/get_status', methods=['POST'])
 def get_status():
-    img = request.files['']
-    status = doze_detection.check_status(img)
+    enc_data = request.form['img']
+    dec_data = base64.b64decode(enc_data.split(',')[1])
+    dec_np = np.fromstring(dec_data, np.uint8)
+    dec_img = cv2.imdecode(dec_np, cv2.IMREAD_ANYCOLOR)
+    status = doze_detection.check_status(dec_img)
     return jsonify({'status': status})
 
 @app.route('/detection_test')

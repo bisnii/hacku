@@ -94,3 +94,8 @@ form
 .select_content p {
     margin-bottom: 5px;
 }
+
+#video_area,
+#capture_image {
+    display: none;
+}

@@ -16,18 +16,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     navigator.mediaDevices.getUserMedia({ video: true, audio: false })
     .then(stream => {
-        const video_area = document.getElementById('video_area');  // 映像表示エリア
-        video_area.srcObject = stream
+        const videoArea = document.getElementById('video_area');  // 映像表示エリア
+        videoArea.srcObject = stream
         setInterval(() => {
             const canvas = document.getElementById('capture_image');  // キャンバス
             const cct = canvas.getContext('2d');  // キャンバスの画像表示エリア
-            canvas.width  = video_area.videoWidth;
-            canvas.height = video_area.videoHeight;
-            cct.drawImage(video_area, 0, 0);  // 動画をキャンバスに描画
-            canvas.toBlob(function(blob) {
-                const img = document.getElementById('jpeg_image');
-                img.src = window.URL.createObjectURL(blob);
-            }, 'image/png')  // 'image/jpeg'とで精度と速度の変化を要検証
+            canvas.width  = videoArea.videoWidth;
+            canvas.height = videoArea.videoHeight;
+            cct.drawImage(videoArea, 0, 0);  // 動画をキャンバスに描画
+
+            const base64 = canvas.toDataURL('image/png')
+            let formData = new FormData()
+            formData.append('img', base64)
+            $.ajax({
+                url: '/get_status',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(status) {
+                    console.log('Success', status);
+                },
+                error: function(errorThrown) {
+                    console.log('Error', errorThrown);
+                }
+            });
         }, 3000)
     })
     .catch(err => {
