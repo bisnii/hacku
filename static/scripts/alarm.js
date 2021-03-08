@@ -1,9 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    timer = document.getElementById('timer')
+    let timer = document.getElementById('timer')
     timer.innerHTML = "00:00";
+    let dialog = document.querySelector('dialog');
+    let btn_show = document.getElementById('show');
     let timeLimit = 0;
     let timerID;
     let startFlag = false;
+    let alarmFlag = false;
     let bgm = new Audio();
     let sound = new Audio();
 
@@ -36,10 +39,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 processData: false,
                 success: function(res) {
                     status = res['status'];
-                    if (status === 'active') {
-                        stop();
-                    } else {
-                        start();
+                    if (!alarmFlag) {
+                        if (status === 'active') {
+                            stop();
+                        } else {
+                            start();
+                        }
                     }
                 },
                 error: function(errorThrown) {
@@ -60,12 +65,17 @@ document.addEventListener('DOMContentLoaded', function() {
         resetTimer();
     }, false);
 
+    dialog.addEventListener('close', function() {
+        alarmFlag = false;
+        stop()
+    }, false);
+
     function resetTimer() {
         let $alarmTime = document.getElementById("alarmTime").value;
 
         if ($alarmTime == '1m') {
             timer.innerHTML = "01:00";
-            timeLimit = 10000;
+            timeLimit = 10000;  // 本番時100000に戻す
         }
         else if ($alarmTime == '5m') {
             timer.innerHTML = "05:00";
@@ -87,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function start() {
         if ((! startFlag) && (timeLimit > 0)){
-            console.log('start!!!!!')
             let $bgmChoice = document.getElementById("bgm").value;
             let $alarmChoice = document.getElementById("alarmMusic").value;
             bgm = new Audio("/static/bgm/bgm-" + $bgmChoice + ".mp3");
@@ -104,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bgm.pause();
         sound.pause();
         startFlag = false;
-        resetTimer()
+        resetTimer();
     }
 
     // 時間表示、bgm、アラームを鳴らす関数
@@ -115,13 +124,16 @@ document.addEventListener('DOMContentLoaded', function() {
         timeLimit = timeLimit - 1000;
 
         if (timeLimit < 0) {
-            bgm.pause();
+            clearInterval(timerID)
+            alarmFlag = true;
             startFlag = false;
-
             sound.loop = true;
+            bgm.pause();
             sound.play();
-
             timer.innerHTML = "Wake Up!";
+            dialog.showModal();
+            init();
+            typingGame();
         }
     }
 }, false);
