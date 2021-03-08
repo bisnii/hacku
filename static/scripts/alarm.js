@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let alarmFlag = false;
     let bgm = new Audio();
     let sound = new Audio();
+    let status_queue = ['active', 'active']
 
     // getUserMedia が使えないブラウザのとき
     if (typeof navigator.mediaDevices.getUserMedia !== 'function') {
@@ -38,11 +39,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 contentType: false,
                 processData: false,
                 success: function(res) {
-                    status = res['status'];
+                    status_queue.shift();
+                    status_queue.push(res['status']);
                     if (!alarmFlag) {
-                        if (status === 'active') {
+                        if (status_queue.toString() === 'active,active') {
                             stop();
-                        } else {
+                        } else if (status_queue.toString() === 'sleep,sleep') {
                             start();
                         }
                     }
@@ -51,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('Error', errorThrown);
                 }
             })
-        }, 3000)
+        }, 3000)  // 本番時10000にする
     })
     .catch(err => {
         alert(`${err.name} ${err.message}`)
@@ -62,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("check").addEventListener("click", function() {
         sound.pause();
         bgm.pause();
-        resetTimer();
+        resetAlarm();
     }, false);
 
     dialog.addEventListener('close', function() {
@@ -70,12 +72,12 @@ document.addEventListener('DOMContentLoaded', function() {
         stop()
     }, false);
 
-    function resetTimer() {
+    function resetAlarm() {
         let $alarmTime = document.getElementById("alarmTime").value;
 
         if ($alarmTime == '1m') {
             timer.innerHTML = "01:00";
-            timeLimit = 10000;  // 本番時100000に戻す
+            timeLimit = 10000;  // 本番時100000にする
         }
         else if ($alarmTime == '5m') {
             timer.innerHTML = "05:00";
@@ -113,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bgm.pause();
         sound.pause();
         startFlag = false;
-        resetTimer();
+        resetAlarm();
     }
 
     // 時間表示、bgm、アラームを鳴らす関数
