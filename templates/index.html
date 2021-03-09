@@ -42,28 +42,24 @@
                     <option value="alarm" selected>アラーム</option>
                     <option value="telephone">着信音</option>
                     <option value="bell">ベル</option>
-                    <option>アラーム4</option>
                 </select>
             </div>
             
             <div class="select_content">
                 <p>睡眠中の音楽</p>
                 <select name="music" id="bgm" class="drop_down2">
-                    <option value="rain" selected>雨音</option>
+                    <option value="none" selected>なし</option>
+                    <option value="rain">雨音</option>
                     <option value="sea">海波</option>
                     <option value="country">田舎</option>
-                    <option>音楽4</option>
                 </select>
             </div>
         </form>
 
-        <div id="check" class='check'>
-            <a id="decision" class="check_button">保 存</a>
+        <div class='work_status'>
+            <span>作業状態</span>
+            <button id="work_status_button">作業中</button>
         </div>
-        <div id="startStop" class='startStop'>
-            <div><a id="timerStart" class="timerStart">START</a></div>
-            <div><a id="timerStop" class="timerStop">STOP</a></div>
-        </div>        
     </div>
     
     <!-- タイピングゲーム -->
@@ -71,10 +67,7 @@
         <p id="count"></p>
         <p id="japanese"></p>
         <p id="alphabet"></p>
-        <!-- <button id="close">強制ストップ</button> -->
     </dialog>
-    <!-- <button id="show">ポップアップの表示</button>
-    <p id='stop_alarm'></p> -->
 
     <!-- CSSで非表示に設定してある -->
     <video id="video_area" autoplay></video>

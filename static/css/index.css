@@ -46,17 +46,13 @@ header {
     border-bottom-color: #f0f;
 }
 
-.check_button,
-.timerStop,
-.timerStart {
-    color: rgb(255, 102, 0);
-    background-color: #0000;
-    font-size: larger;
-    font-weight: 600;
+#work_status_button {
+    color: #000;
+    background-color: #fff;
     text-decoration: none;
     letter-spacing: 1px;
     padding: 1px 3px;
-    border: 2.0px solid #000;
+    border: 1px solid #000;
     border-radius: 0%;  /*角状態*/
     cursor: pointer;
 }
@@ -97,13 +93,14 @@ form
     border: 1.5px solid #000; /*枠*/
     background-color: #0000;
 }
-.check{
+
+.work_status{
     text-align: center;
 }
 
-.startStop {
-    display: flex;
-    justify-content: space-evenly;
+#work_status_button {
+    font-size: 16px;
+    margin: 5px;
 }
 
 .select_content {
