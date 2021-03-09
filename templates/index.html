@@ -9,14 +9,16 @@
 </head>
 <body>
     <header>
-        <h2 class="title"><a href="/">Reboot sleeper</a></h2>
-        <nav class="nav">
-            <ul class="menu-group">
-                <li class="menu-item"><a href="/detection_test" class="button1">居眠り検出</a></li>
-                <li class="menu-item"><a href="/activity_log" class="button2">1日の記録</a></li>
-                <li class="menu-item"><a href="/login" class="button3">ログイン<br></a></li>
-            </ul>
-        </nav>
+        <div class="header_content">
+            <h2 class="title"><a href="/">Reboot sleeper</a></h2>
+            <nav class="nav">
+                <ul class="menu-group">
+                    <li class="menu-item"><a href="/detection_test" class="nav_button">居眠り検出</a></li>
+                    <li class="menu-item"><a href="/activity_log" class="nav_button">1日の記録</a></li>
+                    <li class="menu-item"><a href="/login" class="nav_button">ログイン<br></a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <div class="entire">
         <p id='clock' class="clock"></p>
@@ -61,12 +63,6 @@
             <button id="work_status_button">作業中</button>
         </div>
     </div>
-
-    <br>
-
-    <footer>
-        <p id="license">この作品のアラーム音は「OtoLogic」の音源を<a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a>のライセンスのもとで使用しています。</p>
-    </footer>
     
     <!-- タイピングゲーム -->
     <dialog>
@@ -78,6 +74,10 @@
     <!-- CSSで非表示に設定してある -->
     <video id="video_area" autoplay></video>
     <canvas id="capture_image"></canvas>
+
+    <footer>
+        <p id="license">この作品のアラーム音は「OtoLogic」の音源を<a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a>のライセンスのもとで使用しています。</p>
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type='text/javascript' src="/static/scripts/clock.js"></script>
