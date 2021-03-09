@@ -10,7 +10,7 @@ body{
 }
 
 .entire{
-    width: 600px;
+    width: 700px;
     margin: 80px auto;
 }
 
@@ -28,7 +28,7 @@ header {
     display: flex;
     height: 40px;
     align-items: center;
-    width: 600px;
+    width: 700px;
     margin: 0 auto;
 }
 
