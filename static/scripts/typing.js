@@ -1,23 +1,9 @@
-var dialog = document.querySelector('dialog');
-var btn_show = document.getElementById('show');
-var btn_close = document.getElementById('close');
-
+const dialog = document.querySelector('dialog');
 const array_j = ['さあ張り切って頑張りましょう。', 'ハングリーであれ、愚かであれ。', 'ソースコードは嘘をつかない', '枯れないバグは無い', '美はシンプルさに宿る'];
 const array_a = ['saaharikitteganbarimashou.','hanguri-deare,orokadeare.','so-suko-dohausowotukanai','karenaibaguhanai','bihasinpurusaniyadoru']
 let used_j = [];
 let used_a = [];
 let idx = 0;
-
-btn_show.addEventListener('click', function() {
-    dialog.showModal();
-    init();
-    typingGame();
-}, false);
-
-btn_close.addEventListener('mousedown', function() {
-    dialog.close();
-    stop_alarm.innerHTML = 'stop';
-}, false);
 
 function init(){
     shuffle();
@@ -67,7 +53,6 @@ function show_keydown(phrase_a){
                 const newArray_a = await array_a.filter(i => used_a.indexOf(i) === -1);
                 if (newArray_j.length === 2) {
                     alphabet_s = "";
-                    stop_alarm.innerHTML = 'stop';
                     dialog.close();
                 }
                 await typingGame(newArray_j,newArray_a);
