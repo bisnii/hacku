@@ -1,4 +1,6 @@
 body{
+    margin: 0;
+    padding: 0;
     background-color: #000;
     background-image: url("/static/img/background1.jpg");
     background-repeat: no-repeat;
@@ -8,12 +10,8 @@ body{
 }
 
 .entire{
-    width: 600px;
+    width: 700px;
     margin: 80px auto;
-}
-
-.title{
-    color: #000;
 }
 
 .title a {
@@ -23,14 +21,15 @@ body{
 
 header {
     background-color: #000;
-    margin: 20px;
+    margin: 20px 0 20px;
+    padding: 0;
 }
 
 .header_content {
     display: flex;
     height: 40px;
     align-items: center;
-    width: 600px;
+    width: 700px;
     margin: 0 auto;
 }
 
@@ -46,7 +45,6 @@ header {
 
 .nav_button {
     color: #fff;
-    background-color: #0000;
     font-size: larger;
     font-weight: 700;
     text-decoration: none;
