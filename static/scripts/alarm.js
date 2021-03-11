@@ -1,16 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
     let timer = document.getElementById('timer')
     timer.innerHTML = "00:00";
-    let dialog = document.querySelector('dialog');
+    let typing = document.getElementById('typing');
     let workStatusButton = document.getElementById('work_status_button');
+    let setting = document.getElementById('setting');
+    let btn_show = document.getElementById('show');
+    let btn_close = document.getElementById('close');
+    let radio_break = document.getElementById("break_setting");
+    let radioBreakList = radio_break.q1;
+    let break_value = radioBreakList.value;
+    let radio_typing = document.getElementById("typing_setting");
+    let radioTypingList = radio_typing.q2;
+    let typing_value = radioTypingList.value;
+    const slider_volume = document.getElementById("volume");
+    const bgmtext = document.getElementById("btn_play");
     let timeLimit = 0;
     let timerID;
     let sec = 0;
     let startFlag = false;
     let alarmFlag = false;
     let noticeFlag = false;
+    let settingFlag = false;
     let bgm = new Audio();
     let sound = new Audio();
+    let bgm_setting = new Audio("/static/bgm/bgm-sea.mp3");
+    bgm.volume = slider_volume.value;
     let status_queue = ['active', 'active']
     resetAlarm();
     setAlarm();
@@ -29,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const videoArea = document.getElementById('video_area');  // 映像表示エリア
         videoArea.srcObject = stream
         setInterval(function() {
-            if (workStatusButton.textContent === '作業中') {
+            if (workStatusButton.textContent === '作業中' && settingFlag === false) {
                 const canvas = document.getElementById('capture_image');  // キャンバス
                 const cct = canvas.getContext('2d');  // キャンバスの画像表示エリア
                 canvas.width  = videoArea.videoWidth;
@@ -93,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, false);
 
-    dialog.addEventListener('close', function() {
+    typing.addEventListener('close', function() {
         alarmFlag = false;
         stop();
     }, false);
@@ -150,11 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } 
         noticeFlag = false;  
         sec = 0; 
-        console.log('start')
     }
     
     function stop() {
-        console.log('stop');
         clearInterval(timerID);
         bgm.pause();
         sound.pause();
@@ -177,25 +189,26 @@ document.addEventListener('DOMContentLoaded', function() {
             bgm.pause();
             sound.play();
             timer.innerHTML = "Wake Up!";
-            dialog.showModal();
-            init();
-            typingGame();
+            if (typing_value === "する") {
+                typing.showModal();
+                init();
+                typingGame();
+            }    
             noticeFlag = true;
             sec = 0;
-            console.log('time');
         }
     }
 
+    // プッシュ通知
     function pushNotificaton(){
         sec++;
         console.log(sec);
-        if (workStatusButton.textContent === '退席中'){
+        if (workStatusButton.textContent === '退席中' || break_value === "しない"){
             noticeFlag = false;
             sec = 0;
         }
-        if(sec >= 60 && noticeFlag==true){  
+        if(sec >= 10 && noticeFlag==true && break_value === "する"){  
             sec = 0;
-            console.log('push')
             flag = false;
             Push.create('お疲れ様です！', {
                 body: '作業開始から2時間です。そろそろ休憩しましょう！',
@@ -207,4 +220,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }    
     }
     setInterval(pushNotificaton, 1000);
+
+    // 詳細設定
+    btn_show.addEventListener('click', function() {
+        setting.showModal();
+        stop();
+        settingFlag = true;
+    }, false);
+    btn_close.addEventListener('click', function() {
+        bgm_setting.pause();
+        bgmtext.textContent = "再生";
+        break_value = radioBreakList.value;
+        typing_value = radioTypingList.value;
+        settingFlag = false;
+        setting.close();
+    }, false);
+    
+    btn_play.addEventListener("click", e => {
+        if (bgmtext.textContent === "再生"){
+            bgm_setting.play();
+            bgmtext.textContent = "一時停止";
+        }
+        else {
+            bgm_setting.pause();
+            bgmtext.textContent = "再生";
+        }
+    })
+    
+    slider_volume.addEventListener("input", e => {
+        bgm_setting.volume = slider_volume.value;
+        bgm.volume = slider_volume.value;
+    });
+
 }, false);
