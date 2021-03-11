@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     let timer = document.getElementById('timer')
     timer.innerHTML = "00:00";
-    let dialog = document.querySelector('dialog');
     let workStatusButton = document.getElementById('work_status_button');
     let timeLimit = 0;
     let timerID;
@@ -10,9 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
     let bgm = new Audio();
     let sound = new Audio();
     let status_queue = ['active', 'active']
+    let subWindow;  // サブウインドウのオブジェクト
+    var WIDTH = 800;
+    const HEIGHT = 500;
+    const X = window.screenX + (window.outerWidth / 2) - (WIDTH / 2);
+    const Y = window.screenY + (window.outerHeight / 2) - (HEIGHT / 2);
     resetAlarm();
     setAlarm();
     setBGM();
+    // 0:1と2以外、1:アラームが鳴っている、2:タイピングによりサブウインドウが閉じられたとき
+    document.cookie = 'typing=0';
 
 
     // getUserMedia が使えないブラウザのとき
@@ -88,11 +94,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, false);
 
-    dialog.addEventListener('close', function() {
-        alarmFlag = false;
-        stop();
-    }, false);
-
+    // 1秒ごとにクッキーでアラームとタイピングゲームの状態を判断
+    let typing = setInterval(function() {
+        if (document.cookie === 'typing=1') {
+            if (subWindow.closed) {
+                subWindow = window.open('/typing', null, 'left='+X+',top='+Y+',width='+WIDTH+',height='+HEIGHT);
+            }
+        } else if (document.cookie === 'typing=2') {
+            document.cookie = 'typing=0';
+            alarmFlag = false;
+            stop();
+        }
+    }, 1000);
 
     function resetAlarm() {
         let $alarmTime = document.getElementById("alarmTime").value;
@@ -167,9 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
             bgm.pause();
             sound.play();
             timer.innerHTML = "Wake Up!";
-            dialog.showModal();
-            init();
-            typingGame();
+            document.cookie = 'typing=1'
+            subWindow = window.open('/typing', null, 'left='+X+',top='+Y+',width='+WIDTH+',height='+HEIGHT);
         }
     }
 }, false);
