@@ -1,20 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     let timer = document.getElementById('timer')
     timer.innerHTML = "00:00";
-    let dialog = document.querySelector('dialog');
     let workStatusButton = document.getElementById('work_status_button');
     let timeLimit = 0;
     let timerID;
     let sec = 0;
     let startFlag = false;
     let alarmFlag = false;
+    let $bgmChoice;
     let noticeFlag = false;
     let bgm = new Audio();
     let sound = new Audio();
     let status_queue = ['active', 'active']
+    let subWindow;  // サブウインドウのオブジェクト
+    const WIDTH = 800;
+    const HEIGHT = 500;
     resetAlarm();
     setAlarm();
     setBGM();
+    // 0:1と2以外、1:アラームが鳴っている、2:タイピングによりサブウインドウが閉じられたとき
+    document.cookie = 'typing=0';
 
 
     // getUserMedia が使えないブラウザのとき
@@ -84,20 +89,29 @@ document.addEventListener('DOMContentLoaded', function() {
     workStatusButton.addEventListener("click", function() {
         if (workStatusButton.textContent === '作業中') {
             workStatusButton.textContent = '退席中';
+            clearInterval(timerID);
+            bgm.pause();
+            startFlag = false;
             noticeFlag = false; 
-
-            stop();
+            resetAlarm();
         } else {
             workStatusButton.textContent = '作業中';
             noticeFlag = true;
         }
     }, false);
 
-    dialog.addEventListener('close', function() {
-        alarmFlag = false;
-        stop();
-    }, false);
-
+    // 1秒ごとにクッキーでアラームとタイピングゲームの状態を判断
+    let typing = setInterval(function() {
+        if (document.cookie === 'typing=1') {
+            if (subWindow.closed) {
+                subWindow = window.open('/typing', null, getPosition());
+            }
+        } else if (document.cookie === 'typing=2') {
+            document.cookie = 'typing=0';
+            alarmFlag = false;
+            stop();
+        }
+    }, 1000);
 
     function resetAlarm() {
         let $alarmTime = document.getElementById("alarmTime").value;
@@ -132,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setBGM() {
-        let $bgmChoice = document.getElementById("bgm").value;
+        $bgmChoice = document.getElementById("bgm").value;
         bgm.pause();
         if ($bgmChoice === 'none') {
             bgm = new Audio();
@@ -143,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function start() {
-        bgm.play();
+        if ($bgmChoice != 'none') {
+            bgm.play();
+        }
         if ((! startFlag) && (timeLimit > 0)){
             startFlag = true;
             timerID = setInterval(time, 1000)
@@ -154,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function stop() {
-        console.log('stop');
         clearInterval(timerID);
         bgm.pause();
         sound.pause();
@@ -177,13 +192,18 @@ document.addEventListener('DOMContentLoaded', function() {
             bgm.pause();
             sound.play();
             timer.innerHTML = "Wake Up!";
-            dialog.showModal();
-            init();
-            typingGame();
+            document.cookie = 'typing=1'
+            subWindow = window.open('/typing', null, getPosition());
             noticeFlag = true;
             sec = 0;
             console.log('time');
         }
+    }
+
+    function getPosition(width=WIDTH, height=HEIGHT) {
+        const x = window.screenX + (window.outerWidth / 2) - (width / 2);
+        const y = window.screenY + (window.outerHeight / 2) - (height / 2);
+        return 'left='+x+',top='+y+',width='+width+',height='+height;
     }
 
     function pushNotificaton(){

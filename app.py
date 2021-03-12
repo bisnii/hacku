@@ -35,5 +35,9 @@ def activity_log():
 def login():
     return render_template('login.html')
 
+@app.route('/typing')
+def typing():
+    return render_template('typing.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
