@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let timerID;
     let startFlag = false;
     let alarmFlag = false;
+    let $bgmChoice;
     let bgm = new Audio();
     let sound = new Audio();
     let status_queue = ['active', 'active']
@@ -88,7 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
     workStatusButton.addEventListener("click", function() {
         if (workStatusButton.textContent === '作業中') {
             workStatusButton.textContent = '退席中';
-            stop();
+            resetAlarm();
+            startFlag = false;
+            clearInterval(timerID);
         } else {
             workStatusButton.textContent = '作業中';
         }
@@ -140,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setBGM() {
-        let $bgmChoice = document.getElementById("bgm").value;
+        $bgmChoice = document.getElementById("bgm").value;
         bgm.pause();
         if ($bgmChoice === 'none') {
             bgm = new Audio();
@@ -151,7 +154,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function start() {
-        bgm.play();
+        if ($bgmChoice != 'none') {
+            bgm.play();
+        }
         if ((! startFlag) && (timeLimit > 0)){
             startFlag = true;
             timerID = setInterval(time, 1000)
@@ -159,7 +164,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function stop() {
-        clearInterval(timerID);
         bgm.pause();
         sound.pause();
         startFlag = false;
