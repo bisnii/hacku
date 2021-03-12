@@ -39,5 +39,9 @@ def login():
 def typing():
     return render_template('typing.html')
 
+@app.route('/alarm_stop')
+def alarm_stop():
+    return render_template('alarm_stop.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -55,7 +55,8 @@ header {
     border-bottom: 2px solid #fff;
 }
 
-#work_status_button {
+#work_status_button,
+#show {
     color: #000;
     background-color: #fff;
     text-decoration: none;
@@ -106,11 +107,14 @@ form
     background-color: #0000;
 }
 
-.work_status{
+.work_status,
+.detail_setting {
     text-align: center;
+    margin-bottom: 20px;
 }
 
-#work_status_button {
+#work_status_button,
+#show {
     font-size: 16px;
     margin: 5px;
 }
@@ -145,4 +149,8 @@ form
 footer {
     text-align: center;
     font-size: 10px;
+}
+
+#alarm_stop_content {
+    text-align: center;
 }
