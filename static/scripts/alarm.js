@@ -13,10 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let sound = new Audio();
     let status_queue = ['active', 'active']
     let subWindow;  // サブウインドウのオブジェクト
-    var WIDTH = 800;
+    const WIDTH = 800;
     const HEIGHT = 500;
-    const X = window.screenX + (window.outerWidth / 2) - (WIDTH / 2);
-    const Y = window.screenY + (window.outerHeight / 2) - (HEIGHT / 2);
     resetAlarm();
     setAlarm();
     setBGM();
@@ -105,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let typing = setInterval(function() {
         if (document.cookie === 'typing=1') {
             if (subWindow.closed) {
-                subWindow = window.open('/typing', null, 'left='+X+',top='+Y+',width='+WIDTH+',height='+HEIGHT);
+                subWindow = window.open('/typing', null, getPosition());
             }
         } else if (document.cookie === 'typing=2') {
             document.cookie = 'typing=0';
@@ -195,11 +193,17 @@ document.addEventListener('DOMContentLoaded', function() {
             sound.play();
             timer.innerHTML = "Wake Up!";
             document.cookie = 'typing=1'
-            subWindow = window.open('/typing', null, 'left='+X+',top='+Y+',width='+WIDTH+',height='+HEIGHT);
+            subWindow = window.open('/typing', null, getPosition());
             noticeFlag = true;
             sec = 0;
             console.log('time');
         }
+    }
+
+    function getPosition(width=WIDTH, height=HEIGHT) {
+        const x = window.screenX + (window.outerWidth / 2) - (width / 2);
+        const y = window.screenY + (window.outerHeight / 2) - (height / 2);
+        return 'left='+x+',top='+y+',width='+width+',height='+height;
     }
 
     function pushNotificaton(){
