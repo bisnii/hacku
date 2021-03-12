@@ -110,6 +110,7 @@ form
 .work_status,
 .detail_setting {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 #work_status_button,
@@ -148,4 +149,8 @@ form
 footer {
     text-align: center;
     font-size: 10px;
+}
+
+#alarm_stop_content {
+    text-align: center;
 }

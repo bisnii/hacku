@@ -232,12 +232,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // プッシュ通知
     function pushNotificaton(){
         sec++;
-        console.log(sec);
         if (workStatusButton.textContent === '退席中' || break_value === "しない"){
             noticeFlag = false;
             sec = 0;
         }
-        if(sec >= 10 && noticeFlag==true && break_value === "する"){  
+        if(sec >= 60 && noticeFlag==true && break_value === "する"){  
             sec = 0;
             Push.create('お疲れ様です！', {
                 body: '作業開始から2時間です。そろそろ休憩しましょう！',
