@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     timer.innerHTML = "00:00";
     let workStatusButton = document.getElementById('work_status_button');
     let setting = document.getElementById('setting');
-    let alarmStopDialog = document.getElementById('alarm_stop_dialog');
     let btn_show = document.getElementById('show');
     let btn_close = document.getElementById('close');
     let radio_break = document.getElementById("break_setting");
@@ -117,23 +116,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, false);
 
-    document.getElementById('alarm_stop_button').addEventListener('click', function() {
-        alarmFlag = false;
-        stop();
-        alarmStopDialog.close();
-    }, false);
-
     // 1秒ごとにクッキーでアラームとタイピングゲームの状態を判断
     let typing = setInterval(function() {
-        if (typing_value === 'する') {
-            if (document.cookie === 'typing=1') {
-                if (subWindow.closed) {
+        if (document.cookie === 'typing=1') {
+            if (subWindow.closed) {
+                if (typing_value === 'する') {
                     subWindow = window.open('/typing', null, getPosition());
+                } else {
+                    alarmFlag = false;
+                    stop();
                 }
-            } else if (document.cookie === 'typing=2') {
-                alarmFlag = false;
-                stop();
             }
+        } else if (document.cookie === 'typing=2') {
+            alarmFlag = false;
+            stop();
         }
     }, 1000);
 
@@ -220,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (typing_value === "する") {
                 subWindow = window.open('/typing', null, getPosition());
             } else {
-                alarmStopDialog.showModal();
+                subWindow = window.open('/alarm_stop', null, getPosition());
             }
             noticeFlag = true;
             sec = 0;
