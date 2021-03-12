@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let typing = document.getElementById('typing');
     let workStatusButton = document.getElementById('work_status_button');
     let setting = document.getElementById('setting');
+    let alarmStopDialog = document.getElementById('alarm_stop_dialog');
     let btn_show = document.getElementById('show');
     let btn_close = document.getElementById('close');
     let radio_break = document.getElementById("break_setting");
@@ -98,9 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
     workStatusButton.addEventListener("click", function() {
         if (workStatusButton.textContent === '作業中') {
             workStatusButton.textContent = '退席中';
+            clearInterval(timerID);
+            bgm.pause();
+            startFlag = false;
             noticeFlag = false; 
-
-            stop();
+            resetAlarm();
         } else {
             workStatusButton.textContent = '作業中';
             noticeFlag = true;
@@ -110,6 +113,12 @@ document.addEventListener('DOMContentLoaded', function() {
     typing.addEventListener('close', function() {
         alarmFlag = false;
         stop();
+    }, false);
+
+    document.getElementById('alarm_stop_button').addEventListener('click', function() {
+        alarmFlag = false;
+        stop();
+        alarmStopDialog.close();
     }, false);
 
 
@@ -193,7 +202,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 typing.showModal();
                 init();
                 typingGame();
-            }    
+            } else {
+                alarmStopDialog.showModal();
+            }
             noticeFlag = true;
             sec = 0;
         }
@@ -209,7 +220,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if(sec >= 10 && noticeFlag==true && break_value === "する"){  
             sec = 0;
-            flag = false;
             Push.create('お疲れ様です！', {
                 body: '作業開始から2時間です。そろそろ休憩しましょう！',
                 timeout: 5000,
@@ -224,7 +234,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 詳細設定
     btn_show.addEventListener('click', function() {
         setting.showModal();
-        stop();
+        clearInterval(timerID);
+        resetAlarm();
+        bgm.pause();
         settingFlag = true;
     }, false);
     btn_close.addEventListener('click', function() {
@@ -234,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
         typing_value = radioTypingList.value;
         settingFlag = false;
         setting.close();
+        startFlag = false;
     }, false);
     
     btn_play.addEventListener("click", e => {
