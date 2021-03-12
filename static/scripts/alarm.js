@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const videoArea = document.getElementById('video_area');  // 映像表示エリア
         videoArea.srcObject = stream
         setInterval(function() {
-            if (workStatusButton.textContent === '作業中' && settingFlag === false) {
+            if (workStatusButton.textContent === '作業中' && settingFlag == false) {
+                console.log("aa")
                 const canvas = document.getElementById('capture_image');  // キャンバス
                 const cct = canvas.getContext('2d');  // キャンバスの画像表示エリア
                 canvas.width  = videoArea.videoWidth;
@@ -99,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (workStatusButton.textContent === '作業中') {
             workStatusButton.textContent = '退席中';
             noticeFlag = false; 
-
             stop();
         } else {
             workStatusButton.textContent = '作業中';
@@ -175,6 +175,14 @@ document.addEventListener('DOMContentLoaded', function() {
         resetAlarm();
     }
 
+    function stopTyping() {
+        clearInterval(timerID);
+        bgm.pause();
+        noticeFlag = true;
+        startFlag = false;
+        resetAlarm();
+    }
+
     // 時間表示、bgm、アラームを鳴らす関数
     function time() {
         let minute = ("00" + Math.floor((timeLimit / 1000) / 60)).slice(-2);
@@ -224,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 詳細設定
     btn_show.addEventListener('click', function() {
         setting.showModal();
-        stop();
+        stopTyping();
         settingFlag = true;
     }, false);
     btn_close.addEventListener('click', function() {

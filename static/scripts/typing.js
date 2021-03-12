@@ -1,4 +1,4 @@
-const dialog = document.querySelector('dialog');
+const typing = document.getElementById('typing');
 const array_j = ['さあ張り切って頑張りましょう。', 'ハングリーであれ、愚かであれ。', 'ソースコードは嘘をつかない', '枯れないバグは無い', '美はシンプルさに宿る'];
 const array_a = ['saaharikitteganbarimashou.','hanguri-deare,orokadeare.','so-suko-dohausowotukanai','karenaibaguhanai','bihasinpurusaniyadoru']
 let used_j = [];
@@ -53,7 +53,7 @@ function show_keydown(phrase_a){
                 const newArray_a = await array_a.filter(i => used_a.indexOf(i) === -1);
                 if (newArray_j.length === 2) {
                     alphabet_s = "";
-                    dialog.close();
+                    typing.close();
                 }
                 await typingGame(newArray_j,newArray_a);
             }
