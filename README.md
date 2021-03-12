@@ -14,4 +14,4 @@ PC作業が多い人のためのヘルスケアアプリです。
 - 1日の活動記録を表示
 - 瞬き回数からドライアイになりやすいか通知
 
-このソフトウェアは、[Apache2.0ライセンス](http://www.apache.org/licenses/LICENSE-2.0)で配布されている制作物が含まれています。
+このソフトウェアは、[Apache2.0ライセンス](http://www.apache.org/licenses/LICENSE-2.0)、[MIT License](https://opensource.org/licenses/mit-license)、[The 3-Clause BSD License](https://opensource.org/licenses/BSD-3-Clause)で配布されている制作物が含まれています。
