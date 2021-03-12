@@ -89,10 +89,11 @@ document.addEventListener('DOMContentLoaded', function() {
     workStatusButton.addEventListener("click", function() {
         if (workStatusButton.textContent === '作業中') {
             workStatusButton.textContent = '退席中';
-            resetAlarm();
-            startFlag = false;
             clearInterval(timerID);
+            bgm.pause();
+            startFlag = false;
             noticeFlag = false; 
+            resetAlarm();
         } else {
             workStatusButton.textContent = '作業中';
             noticeFlag = true;
@@ -169,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function stop() {
-        console.log('stop');
         clearInterval(timerID);
         bgm.pause();
         sound.pause();
