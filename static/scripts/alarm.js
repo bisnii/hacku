@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const videoArea = document.getElementById('video_area');  // 映像表示エリア
         videoArea.srcObject = stream
         setInterval(function() {
-            if (workStatusButton.textContent === '作業中' && settingFlag === false) {
+            if (workStatusButton.textContent === '作業中' && settingFlag == false) {
                 const canvas = document.getElementById('capture_image');  // キャンバス
                 const cct = canvas.getContext('2d');  // キャンバスの画像表示エリア
                 canvas.width  = videoArea.videoWidth;
@@ -195,6 +195,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.cookie = 'typing=0';
         startFlag = false;
         noticeFlag = true;
+        resetAlarm();
+    }
+
+    function stopTyping() {
+        clearInterval(timerID);
+        bgm.pause();
+        noticeFlag = true;
+        startFlag = false;
         resetAlarm();
     }
 
