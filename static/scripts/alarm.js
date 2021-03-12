@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let workStatusButton = document.getElementById('work_status_button');
     let timeLimit = 0;
     let timerID;
+    let sec = 0;
     let startFlag = false;
     let alarmFlag = false;
     let $bgmChoice;
+    let noticeFlag = false;
     let bgm = new Audio();
     let sound = new Audio();
     let status_queue = ['active', 'active']
@@ -92,8 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
             resetAlarm();
             startFlag = false;
             clearInterval(timerID);
+            noticeFlag = false; 
         } else {
             workStatusButton.textContent = '作業中';
+            noticeFlag = true;
         }
     }, false);
 
@@ -160,13 +164,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if ((! startFlag) && (timeLimit > 0)){
             startFlag = true;
             timerID = setInterval(time, 1000)
-        }    
+        } 
+        noticeFlag = false;  
+        sec = 0; 
+        console.log('start')
     }
     
     function stop() {
+        console.log('stop');
+        clearInterval(timerID);
         bgm.pause();
         sound.pause();
         startFlag = false;
+        noticeFlag = true;
         resetAlarm();
     }
 
@@ -186,6 +196,31 @@ document.addEventListener('DOMContentLoaded', function() {
             timer.innerHTML = "Wake Up!";
             document.cookie = 'typing=1'
             subWindow = window.open('/typing', null, 'left='+X+',top='+Y+',width='+WIDTH+',height='+HEIGHT);
+            noticeFlag = true;
+            sec = 0;
+            console.log('time');
         }
     }
+
+    function pushNotificaton(){
+        sec++;
+        console.log(sec);
+        if (workStatusButton.textContent === '退席中'){
+            noticeFlag = false;
+            sec = 0;
+        }
+        if(sec >= 60 && noticeFlag==true){  
+            sec = 0;
+            console.log('push')
+            flag = false;
+            Push.create('お疲れ様です！', {
+                body: '作業開始から2時間です。そろそろ休憩しましょう！',
+                timeout: 5000,
+                onClick: function () {
+                    this.close();
+                }
+            });
+        }    
+    }
+    setInterval(pushNotificaton, 1000);
 }, false);
