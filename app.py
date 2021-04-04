@@ -44,4 +44,4 @@ def alarm_stop():
     return render_template('alarm_stop.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
