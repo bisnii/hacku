@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if ($alarmTime == '1m') {
             timer.innerHTML = "01:00";
-            timeLimit = 10000;  // 本番時100000にする
+            timeLimit = 100000;  // 本番時100000にする
         }
         else if ($alarmTime == '5m') {
             timer.innerHTML = "05:00";
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
             noticeFlag = false;
             sec = 0;
         }
-        if(sec >= 60 && noticeFlag==true && break_value === "する"){  
+        if(sec >= 60*60*2 && noticeFlag==true && break_value === "する"){  
             sec = 0;
             Push.create('お疲れ様です！', {
                 body: '作業開始から2時間です。そろそろ休憩しましょう！',
@@ -272,6 +272,11 @@ document.addEventListener('DOMContentLoaded', function() {
         bgm_setting.pause();
         bgmtext.textContent = "再生";
         break_value = radioBreakList.value;
+        if (break_value === 'する') {
+            noticeFlag = true;
+        } else {
+            noticeFlag = false;
+        }
         typing_value = radioTypingList.value;
         settingFlag = false;
         setting.close();
