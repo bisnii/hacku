@@ -147,10 +147,15 @@ form
 }
 
 footer {
-    text-align: center;
+    margin-left: 140px;
     font-size: 10px;
 }
 
 #alarm_stop_content {
     text-align: center;
+}
+
+.disc {
+    margin-left: 140px;
+    margin-top: 50px;
 }
