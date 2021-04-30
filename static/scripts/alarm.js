@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setBGM();
     // 0:1と2以外、1:アラームが鳴っている、2:タイピングによりサブウインドウが閉じられたとき
     document.cookie = 'typing=0';
+    let hidden_popup_text = document.getElementById('hidden_popup_text')
 
 
     // getUserMedia が使えないブラウザのとき
@@ -138,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if ($alarmTime == '1m') {
             timer.innerHTML = "01:00";
-            timeLimit = 100000;  // 本番時100000にする
+            timeLimit = 60000;  // 本番時60000にする
         }
         else if ($alarmTime == '5m') {
             timer.innerHTML = "05:00";
@@ -244,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
             noticeFlag = false;
             sec = 0;
         }
-        if(sec >= 60*60*2 && noticeFlag==true && break_value === "する"){  
+        if(sec >= 2*60*60 && noticeFlag==true && break_value === "する"){  
             sec = 0;
             Push.create('お疲れ様です！', {
                 body: '作業開始から2時間です。そろそろ休憩しましょう！',
@@ -281,6 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
         settingFlag = false;
         setting.close();
         startFlag = false;
+        Push.Permission.request();
     }, false);
     
     btn_play.addEventListener("click", e => {
@@ -299,4 +301,14 @@ document.addEventListener('DOMContentLoaded', function() {
         bgm.volume = slider_volume.value;
     });
 
+    // ポップアップの許可申請
+    setTimeout(function() {
+        popup_window = window.open('')
+        if (popup_window === null){
+            hidden_popup_text.textContent = 'アラーム用にポップアップを許可してください。許可後、再読み込みすると本表示は消えます。';
+        }else{
+            popup_window.close();
+            hidden_popup_text.textContent = '';
+        }
+    }, 100)
 }, false);

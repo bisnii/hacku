@@ -11,7 +11,7 @@ body{
 
 .entire{
     width: 700px;
-    margin: 80px auto;
+    margin: 50px auto;
 }
 
 .title a {
@@ -158,4 +158,10 @@ footer {
 .disc {
     margin-left: 140px;
     margin-top: 50px;
+}
+
+#hidden_popup_text {
+    text-align: center;
+    margin: 30px;
+    color: red;
 }
