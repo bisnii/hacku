@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if ($alarmTime == '1m') {
             timer.innerHTML = "01:00";
-            timeLimit = 100000;  // 本番時100000にする
+            timeLimit = 60000;  // 本番時60000にする
         }
         else if ($alarmTime == '5m') {
             timer.innerHTML = "05:00";
@@ -240,11 +240,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // プッシュ通知
     function pushNotificaton(){
         sec++;
+        console.log(sec)
         if (workStatusButton.textContent === '退席中' || break_value === "しない"){
             noticeFlag = false;
             sec = 0;
         }
-        if(sec >= 60*60*2 && noticeFlag==true && break_value === "する"){  
+        if(sec >= 10 && noticeFlag==true && break_value === "する"){  
             sec = 0;
             Push.create('お疲れ様です！', {
                 body: '作業開始から2時間です。そろそろ休憩しましょう！',
