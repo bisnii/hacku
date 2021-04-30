@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setBGM();
     // 0:1と2以外、1:アラームが鳴っている、2:タイピングによりサブウインドウが閉じられたとき
     document.cookie = 'typing=0';
+    let hidden_popup_text = document.getElementById('hidden_popup_text')
 
 
     // getUserMedia が使えないブラウザのとき
@@ -300,4 +301,14 @@ document.addEventListener('DOMContentLoaded', function() {
         bgm.volume = slider_volume.value;
     });
 
+    // ポップアップの許可申請
+    setTimeout(function() {
+        popup_window = window.open('')
+        if (popup_window === null){
+            hidden_popup_text.textContent = 'アラーム用にポップアップを許可してください。許可後、再読み込みすると本表示は消えます。';
+        }else{
+            popup_window.close();
+            hidden_popup_text.textContent = '';
+        }
+    }, 100)
 }, false);
